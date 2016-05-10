@@ -1,0 +1,6 @@
+{% for s in ntpd_upstreams %}
+server {{ s }} iburst
+{% endfor %}
+restrict default ignore
+restrict -6 default ignore
+leapfile "{{ ntpd_leapfile }}"
