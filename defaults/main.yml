@@ -1,7 +1,10 @@
-ntpd_service: ntpd
+ntpd_service: "{{ __ntpd_service }}"
 ntpd_conf: "{{ __ntpd_conf }}"
-ntpd_db_dir: /var/db
-ntpd_leapfile: "{{ ntpd_db_dir }}/ntpd.leap-seconds.list"
+ntpd_db_dir: "{{ __ntpd_db_dir }}"
+ntpd_leapfile: "{{ __ntpd_db_dir }}/leap-seconds.list"
+ntpd_package: "{{ __ntpd_package }}"
+ntpd_driftfile: "{{ __ntpd_db_dir }}/ntp.drift"
+ntpd_leap_seconds_url: "https://www.ietf.org/timezones/data/leap-seconds.list"
 
 ntpd_role: client
 ntpd_upstreams:

@@ -12,16 +12,30 @@ None
 |----------|-------------|---------|
 | ntpd\_service | service name | ntpd |
 | ntpd\_conf | path to ntp.conf | {{ \_\_ntpd\_conf }} |
-| ntpd\_db\_dir | dir to place ntpd.leap-seconds.list | /var/db |
-| ntpd\_leapfile | path to ntpd.leap-seconds.list | {{ ntpd\_db\_dir }}/ntpd.leap-seconds.list |
+| ntpd\_db\_dir | dir to place ntpd.leap-seconds.list | {{ \_\_ntpd\_db\_dir }} |
+| ntpd\_leapfile | path to leap-seconds.list | {{ ntpd\_db\_dir }}/leap-seconds.list |
+| ntpd\_package | package name | {{ \_\_ntpd\_package }} |
+| ntpd\_driftfile | path to `ntp.drift` | {{ \_\_ntpd\_db\_dir }}/ntp.drift |
+| ntpd\_leap\_seconds\_url | URL of leap-seconds.list | https://www.ietf.org/timezones/data/leap-seconds.list |
 | ntpd\_role | NTP client or server (server is not implemented) | client |
 | ntpd\_upstreams | a list of upstream | ["0.pool.ntp.org", "1.pool.ntp.org", "2.pool.ntp.org", "3.pool.ntp.org"] |
+
+## Debian
+
+| Variable | Default |
+|----------|---------|
+| \_\_ntpd\_service | ntp |
+| \_\_ntpd\_conf | /etc/ntp.conf |
+| \_\_ntpd\_db\_dir | /var/lib/ntp |
+| \_\_ntpd\_package | ntp |
 
 ## FreeBSD
 
 | Variable | Default |
 |----------|---------|
+| \_\_ntpd\_service | ntpd |
 | \_\_ntpd\_conf | /etc/ntp.conf |
+| \_\_ntpd\_db\_dir | /var/db/ntp |
 
 # Dependencies
 

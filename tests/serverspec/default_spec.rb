@@ -1,15 +1,18 @@
 require 'spec_helper'
 require 'serverspec'
 
-package = 'ntpd'
-service = 'ntpd'
+package = 'ntp'
+service = 'ntp'
 config  = '/etc/ntp.conf'
-ports   = [ 123 ]
+db_dir  = '/var/lib/ntp'
 
 case os[:family]
 when 'freebsd'
-  db_dir = '/var/db/ntpd'
+  db_dir = '/var/db/ntp'
+  service = 'ntpd'
 end
+
+leap_file = "#{ db_dir }/leap-seconds.list"
 
 case os[:family]
 when 'freebsd'
@@ -25,6 +28,11 @@ describe file(config) do
   its(:content) { should match Regexp.escape('server 1.pool.ntp.org') }
   its(:content) { should match Regexp.escape('server 2.pool.ntp.org') }
   its(:content) { should match Regexp.escape('server 3.pool.ntp.org') }
+end
+
+describe file(leap_file) do
+  it { should be_file }
+  its(:content) { should match(/2272060800\s+10\s+/) }
 end
 
 describe service(service) do
