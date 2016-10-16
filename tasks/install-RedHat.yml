@@ -1,0 +1,6 @@
+---
+
+- name: Install ntpd
+  yum:
+    name: "{{ ntpd_package }}"
+    state: present

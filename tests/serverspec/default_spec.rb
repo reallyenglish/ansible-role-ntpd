@@ -10,7 +10,10 @@ case os[:family]
 when 'freebsd'
   db_dir = '/var/db/ntp'
   service = 'ntpd'
+when 'redhat'
+  service = 'ntpd'
 end
+puts os[:family]
 
 leap_file = "#{ db_dir }/leap-seconds.list"
 
