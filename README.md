@@ -37,6 +37,15 @@ None
 | \_\_ntpd\_conf | /etc/ntp.conf |
 | \_\_ntpd\_db\_dir | /var/db/ntp |
 
+## RedHat
+
+| Variable | Default |
+|----------|---------|
+| \_\_ntpd\_service | ntpd |
+| \_\_ntpd\_conf | /etc/ntp.conf |
+| \_\_ntpd\_db\_dir | /var/lib/ntp |
+| \_\_ntpd\_package | ntp |
+
 # Dependencies
 
 None
