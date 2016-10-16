@@ -3,6 +3,14 @@
 
 - include_vars: "{{ ansible_os_family }}.yml"
 
+- include: "install-{{ ansible_os_family }}.yml"
+
+- name: Download leap seconds file
+  get_url:
+    url: "{{ ntpd_leap_seconds_url }}"
+    dest: "{{ ntpd_leapfile }}"
+    force: yes
+
 - name: Create ntpd.conf
   template:
     src: ntpd.conf.client.j2
