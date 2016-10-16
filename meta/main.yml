@@ -8,7 +8,6 @@ galaxy_info:
   platforms:
   - name: FreeBSD
     versions:
-#   - all
     - 10.3
 #  - name: OpenBSD
 #    versions:
@@ -16,9 +15,9 @@ galaxy_info:
   - name: Ubuntu
     versions:
     - trusty
-#  - name: EL
-#    versions:
-#      - 7
+  - name: EL
+    versions:
+    - 7
 
   galaxy_tags:
     - system
