@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'serverspec'
 
 package = 'ntp'
 service = 'ntp'
@@ -23,6 +22,13 @@ else
   describe package(package) do
     it { should be_installed }
   end 
+end
+
+case os[:family]
+when 'redhat'
+  describe package('libselinux-python') do
+    it { should be_installed }
+  end
 end
 
 describe file(config) do
