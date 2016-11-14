@@ -56,7 +56,7 @@ script:
   - export PATH="${PATH}:`rvm gemdir`/bin"
   - find /home/travis/.gem/ruby/2.1.0
   - rvm gemdir
-  - qansible --version
+  - /home/travis/.gem/ruby/2.1.0/bin/qansible --version
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
