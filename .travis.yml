@@ -54,7 +54,7 @@ script:
 
   # run the QA test
   - export PATH="${PATH}:${PWD}/bin"
-  - ansible-role-qa
+  #- ansible-role-qa
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
