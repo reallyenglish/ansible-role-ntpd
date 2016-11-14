@@ -54,9 +54,7 @@ script:
 
   # run the QA test
   - export PATH="${PATH}:`rvm gemdir`/bin"
-  - find /home/travis/.gem/ruby/2.1.0
-  - rvm gemdir
-  - qansible --version
+  - qansible qa
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
