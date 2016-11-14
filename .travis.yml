@@ -12,6 +12,7 @@ addons:
     - python-pip
     - wget
     - curl
+    - gem
 
 install:
   # Install ansible
