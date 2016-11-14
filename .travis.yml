@@ -42,7 +42,7 @@ script:
 
   # download the QA scripts
   - git clone https://github.com/trombik/qansible.git
-  - ( cd qansible && bundle install --path vendor/bundle --with "test" && bundle exec rake build && gem install --user-install pkg/*.gem )
+  - ( cd qansible && bundle install --path vendor/bundle --with "test" && bundle exec rake build && gem install pkg/*.gem )
   - rm -rf qansible
 
   # git complains if user and email are not set
@@ -56,7 +56,7 @@ script:
   - export PATH="${PATH}:`rvm gemdir`/bin"
   - find /home/travis/.gem/ruby/2.1.0
   - rvm gemdir
-  - /home/travis/.gem/ruby/2.1.0/bin/qansible --version
+  - qansible --version
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
