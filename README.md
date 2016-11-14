@@ -1,6 +1,6 @@
 # ansible-role-ntpd
 
-Configure NTP daemon from ntp.org
+Configure ntpd from ntp.org
 
 # Requirements
 
