@@ -39,7 +39,7 @@ script:
 
   # download the QA scripts
   - git clone https://github.com/trombik/qansible.git
-  - ( cd qansible && bundle install --path vendor/bundle --with "test" && bundle exec rake build && sudo gem install pkg/*.gem )
+  - ( cd qansible && bundle install --path vendor/bundle --with "test" && bundle exec rake build && gem install --user-install pkg/*.gem )
   - rm -rf qansible
 
   # use recent ruby, instead of default ruby 1.9
