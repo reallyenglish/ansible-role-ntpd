@@ -41,6 +41,8 @@ script:
   - git clone https://github.com/trombik/qansible.git
   - ( cd qansible && bundle install --path vendor/bundle --with "test" && bundle exec rake build && gem install --user-install pkg/*.gem )
   - rm -rf qansible
+  - gem env
+  - qansible --version
 
   # use recent ruby, instead of default ruby 1.9
   - rvm install ruby-2.1.10
