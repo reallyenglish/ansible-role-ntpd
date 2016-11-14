@@ -11,6 +11,7 @@ addons:
     packages:
     - python-pip
     - wget
+    - curl
 
 install:
   # Install ansible
@@ -23,8 +24,17 @@ install:
   - printf '[defaults]\nroles_path=../:extra_roles' >ansible.cfg
 
 script:
+  # See if the repo is private
+  - if curl --silent --output /dev/null --dump-header - "https://github.com/${TRAVIS_REPO_SLUG}" | grep "Status:[[:space:]]*404"; then touch .private_repo; fi
+
   # Basic role syntax check
-  - ansible-playbook tests/travisci/tests.yml -i tests/travisci/inventory --syntax-check
+  #
+  # If it is a private repo, it _usually_ has secret information, or encrypted
+  # file. As the information security policy does not allow decryption key to
+  # be transfered to third-party, encrypted files cannot be decrypted in travis
+  # CI environment. Skip syntax check when it is a private repo.
+  #
+  - "if [ ! -f .private_repo ]; then ansible-playbook tests/travisci/tests.yml -i tests/travisci/inventory --syntax-check; fi"
 
   # download the QA scripts
   - git clone https://github.com/trombik/qansible.git
