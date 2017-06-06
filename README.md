@@ -22,11 +22,16 @@ None
 | ntpd\_upstreams | a list of upstream | [] |
 | ntpd\_pools | a list of pool | {% if ntpd_supports_pool %}[ '0.pool.ntp.org' ]{% else %}[ '0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org' ]{% endif %} |
 
-### `ntpd_pools`
+### ntpd_pools
   servers provided by DNS round robin must be added to `ntpd_pools` because
   special treatment for restrictions is required.
   ntpd >= 4.2.7 supports `pool` directive and a delegate pool name can be used.
   see http://support.ntp.org/bin/view/Support/ConfiguringNTP#Section_6.10 for detail
+
+### ntpd_supports_pool
+  `ntpd_supports_pool` is a fact which is `true` when `ntpd >= 4.2.7` and
+  `false` when `ntpd < 4.2.7`.
+
 ## Debian
 
 | Variable | Default |
