@@ -5,6 +5,16 @@
 
 - include: "install-{{ ansible_os_family }}.yml"
 
+- name: Register ntpd version
+  command: ntpd --version
+  register: register_ntpd_version
+  changed_when: false
+  always_run: yes
+
+- name: Set ntpd_supports_pool
+  set_fact:
+    ntpd_supports_pool: "{{ register_ntpd_version.stdout.split()[1] | version_compare('4.2.7', '>=') }}"
+
 - name: Download leap seconds file
   get_url:
     url: "{{ ntpd_leap_seconds_url }}"

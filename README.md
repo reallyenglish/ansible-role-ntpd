@@ -18,8 +18,14 @@ None
 | ntpd\_driftfile | path to `ntp.drift` | {{ \_\_ntpd\_db\_dir }}/ntp.drift |
 | ntpd\_leap\_seconds\_url | URL of leap-seconds.list | https://www.ietf.org/timezones/data/leap-seconds.list |
 | ntpd\_role | NTP client or server (server is not implemented) | client |
-| ntpd\_upstreams | a list of upstream | ["0.pool.ntp.org", "1.pool.ntp.org", "2.pool.ntp.org", "3.pool.ntp.org"] |
+| ntpd\_upstreams | a list of upstream | [] |
+| ntpd\_pools | a list of pool | {% if ntpd_supports_pool %}[ '0.pool.ntp.org' ]{% else %}[ '0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org' ]{% endif %} |
 
+### `ntpd_pools`
+  servers provided by DNS round robin must be added to `ntpd_pools` because
+  special treatment for restrictions is required.
+  ntpd >= 4.2.7 supports `pool` directive and a delegate pool name can be used.
+  see http://support.ntp.org/bin/view/Support/ConfiguringNTP#Section_6.10 for detail
 ## Debian
 
 | Variable | Default |
@@ -56,6 +62,12 @@ None
 - hosts: localhost
   roles:
     - ansible-role-ntpd
+  vars:
+    ntpd_upstreams:
+      - time1.google.com
+      - time2.google.com
+      - time3.google.com
+      - time4.google.com
 ```
 
 # License

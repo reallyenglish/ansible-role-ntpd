@@ -1,7 +1,26 @@
 {% for s in ntpd_upstreams %}
 server {{ s }} iburst
+restrict {{ s }} nomodify notrap noquery
 {% endfor %}
+{% if ( ntpd_pools | length == 0 ) or ntpd_supports_pool %}
 restrict default ignore
 restrict -6 default ignore
+{% else %}
+restrict default -4 nomodify nopeer noquery notrap
+restrict default -6 nomodify nopeer noquery notrap
+{% endif %}
+{% if ( ntpd_pools | length > 0 ) %}
+{% if ntpd_supports_pool %}
+{% for ntpd_pool in ntpd_pools %}
+pool {{ ntpd_pool }} iburst
+{% endfor %}
+restrict source nomodify noquery notrap
+{% else %}
+{% for ntpd_pool in ntpd_pools %}
+server {{ ntpd_pool }} iburst
+{% endfor %}
+{% endif %}
+{% endif %}
+restrict localhost
 leapfile "{{ ntpd_leapfile }}"
 driftfile "{{ ntpd_driftfile }}"
