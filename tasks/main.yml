@@ -38,7 +38,7 @@
     dest: "{{ ntpd_conf }}"
     validate: "ansible-ntpd-checkconf %s"
   notify: Restart ntpd
-  when: "{{ ntpd_role == 'client' }}"
+  when: ntpd_role == 'client'
 
 - name: Start ntpd
   service:
