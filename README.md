@@ -13,6 +13,7 @@ None
 | ntpd\_service | service name | ntpd |
 | ntpd\_conf | path to ntp.conf | {{ \_\_ntpd\_conf }} |
 | ntpd\_db\_dir | dir to place ntpd.leap-seconds.list | {{ \_\_ntpd\_db\_dir }} |
+| ntpd\_script\_dir | directory to keep support script. this must be included in PATH environment variable. | {{ \_\_ntpd\_script\_dir }} |
 | ntpd\_leapfile | path to leap-seconds.list | {{ ntpd\_db\_dir }}/leap-seconds.list |
 | ntpd\_package | package name | {{ \_\_ntpd\_package }} |
 | ntpd\_driftfile | path to `ntp.drift` | {{ \_\_ntpd\_db\_dir }}/ntp.drift |
@@ -34,6 +35,7 @@ None
 | \_\_ntpd\_conf | /etc/ntp.conf |
 | \_\_ntpd\_db\_dir | /var/lib/ntp |
 | \_\_ntpd\_package | ntp |
+| \_\_ntpd\_script\_dir | /usr/bin |
 
 ## FreeBSD
 
@@ -42,6 +44,7 @@ None
 | \_\_ntpd\_service | ntpd |
 | \_\_ntpd\_conf | /etc/ntp.conf |
 | \_\_ntpd\_db\_dir | /var/db/ntp |
+| \_\_ntpd\_script\_dir | /usr/local/bin |
 
 ## RedHat
 
@@ -51,6 +54,7 @@ None
 | \_\_ntpd\_conf | /etc/ntp.conf |
 | \_\_ntpd\_db\_dir | /var/lib/ntp |
 | \_\_ntpd\_package | ntp |
+| \_\_ntpd\_script\_dir | /usr/bin |
 
 # Dependencies
 

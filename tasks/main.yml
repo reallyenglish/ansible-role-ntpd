@@ -5,6 +5,17 @@
 
 - include: "install-{{ ansible_os_family }}.yml"
 
+- name: Create ntpd_script_dir
+  file:
+    path: "{{ ntpd_script_dir }}"
+    state: directory
+
+- name: Create ansible-ntpd-checkconf
+  copy:
+    dest: "{{ ntpd_script_dir }}/ansible-ntpd-checkconf"
+    src: ansible-ntpd-checkconf.sh
+    mode: 0755
+
 - name: Register ntpd version
   command: ntpd --version
   register: register_ntpd_version
@@ -25,6 +36,7 @@
   template:
     src: ntpd.conf.client.j2
     dest: "{{ ntpd_conf }}"
+    validate: "ansible-ntpd-checkconf %s"
   notify: Restart ntpd
   when: "{{ ntpd_role == 'client' }}"
 

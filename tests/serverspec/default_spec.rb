@@ -4,11 +4,13 @@ package = "ntp"
 service = "ntp"
 config  = "/etc/ntp.conf"
 db_dir  = "/var/lib/ntp"
+script_dir = "/usr/bin"
 pool_base = "pool.ntp.org"
 
 case os[:family]
 when "freebsd"
   db_dir = "/var/db/ntp"
+  script_dir = "/usr/local/bin"
   service = "ntpd"
 when "redhat"
   service = "ntpd"
@@ -80,4 +82,13 @@ describe "ntpd sync", retry: 30, retry_wait: 1 do
   it "reaches all servers" do
     expect(command("ntpq -pn").stdout).not_to match(/\.INIT\./)
   end
+end
+
+describe file(script_dir) do
+  it { should be_directory }
+end
+
+describe file("#{script_dir}/ansible-ntpd-checkconf") do
+  it { should be_file }
+  it { should be_mode 755 }
 end

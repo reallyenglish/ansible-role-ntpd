@@ -1,3 +1,4 @@
 __ntpd_service: ntpd
 __ntpd_conf: /etc/ntp.conf
 __ntpd_db_dir: /var/db/ntp
+__ntpd_script_dir: /usr/local/bin
