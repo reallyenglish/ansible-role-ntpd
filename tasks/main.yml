@@ -5,6 +5,27 @@
 
 - include: "install-{{ ansible_os_family }}.yml"
 
+- name: Create ntpd_script_dir
+  file:
+    path: "{{ ntpd_script_dir }}"
+    state: directory
+
+- name: Create ansible-ntpd-checkconf
+  copy:
+    dest: "{{ ntpd_script_dir }}/ansible-ntpd-checkconf"
+    src: ansible-ntpd-checkconf.sh
+    mode: 0755
+
+- name: Register ntpd version
+  command: ntpd --version
+  register: register_ntpd_version
+  changed_when: false
+  always_run: yes
+
+- name: Set ntpd_supports_pool
+  set_fact:
+    ntpd_supports_pool: "{{ register_ntpd_version.stdout.split()[1] | version_compare('4.2.7', '>=') }}"
+
 - name: Download leap seconds file
   get_url:
     url: "{{ ntpd_leap_seconds_url }}"
@@ -15,8 +36,9 @@
   template:
     src: ntpd.conf.client.j2
     dest: "{{ ntpd_conf }}"
+    validate: "ansible-ntpd-checkconf %s"
   notify: Restart ntpd
-  when: "{{ ntpd_role == 'client' }}"
+  when: ntpd_role == 'client'
 
 - name: Start ntpd
   service:

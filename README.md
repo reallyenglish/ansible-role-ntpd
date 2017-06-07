@@ -13,12 +13,24 @@ None
 | ntpd\_service | service name | ntpd |
 | ntpd\_conf | path to ntp.conf | {{ \_\_ntpd\_conf }} |
 | ntpd\_db\_dir | dir to place ntpd.leap-seconds.list | {{ \_\_ntpd\_db\_dir }} |
+| ntpd\_script\_dir | directory to keep support script. this must be included in PATH environment variable. | {{ \_\_ntpd\_script\_dir }} |
 | ntpd\_leapfile | path to leap-seconds.list | {{ ntpd\_db\_dir }}/leap-seconds.list |
 | ntpd\_package | package name | {{ \_\_ntpd\_package }} |
 | ntpd\_driftfile | path to `ntp.drift` | {{ \_\_ntpd\_db\_dir }}/ntp.drift |
 | ntpd\_leap\_seconds\_url | URL of leap-seconds.list | https://www.ietf.org/timezones/data/leap-seconds.list |
 | ntpd\_role | NTP client or server (server is not implemented) | client |
-| ntpd\_upstreams | a list of upstream | ["0.pool.ntp.org", "1.pool.ntp.org", "2.pool.ntp.org", "3.pool.ntp.org"] |
+| ntpd\_upstreams | a list of upstream | [] |
+| ntpd\_pools | a list of pool | {% if ntpd_supports_pool %}[ '0.pool.ntp.org' ]{% else %}[ '0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org' ]{% endif %} |
+
+### ntpd_pools
+  servers provided by DNS round robin must be added to `ntpd_pools` because
+  special treatment for restrictions is required.
+  ntpd >= 4.2.7 supports `pool` directive and a delegate pool name can be used.
+  see http://support.ntp.org/bin/view/Support/ConfiguringNTP#Section_6.10 for detail
+
+### ntpd_supports_pool
+  `ntpd_supports_pool` is a fact which is `true` when `ntpd >= 4.2.7` and
+  `false` when `ntpd < 4.2.7`.
 
 ## Debian
 
@@ -28,6 +40,7 @@ None
 | \_\_ntpd\_conf | /etc/ntp.conf |
 | \_\_ntpd\_db\_dir | /var/lib/ntp |
 | \_\_ntpd\_package | ntp |
+| \_\_ntpd\_script\_dir | /usr/bin |
 
 ## FreeBSD
 
@@ -36,6 +49,7 @@ None
 | \_\_ntpd\_service | ntpd |
 | \_\_ntpd\_conf | /etc/ntp.conf |
 | \_\_ntpd\_db\_dir | /var/db/ntp |
+| \_\_ntpd\_script\_dir | /usr/local/bin |
 
 ## RedHat
 
@@ -45,6 +59,7 @@ None
 | \_\_ntpd\_conf | /etc/ntp.conf |
 | \_\_ntpd\_db\_dir | /var/lib/ntp |
 | \_\_ntpd\_package | ntp |
+| \_\_ntpd\_script\_dir | /usr/bin |
 
 # Dependencies
 
@@ -56,6 +71,12 @@ None
 - hosts: localhost
   roles:
     - ansible-role-ntpd
+  vars:
+    ntpd_upstreams:
+      - time1.google.com
+      - time2.google.com
+      - time3.google.com
+      - time4.google.com
 ```
 
 # License
