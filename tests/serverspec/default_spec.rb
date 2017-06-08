@@ -26,6 +26,11 @@ unless os[:family] == "freebsd"
 end
 
 case os[:family]
+when "freebsd"
+  describe file("/etc/rc.conf.d/ntpd") do
+    it { should be_file }
+    its(:content) { should match(/^ntpd_sync_on_start="YES"$/) }
+  end
 when "redhat"
   describe package("libselinux-python") do
     it { should be_installed }
@@ -68,6 +73,12 @@ end
 describe service(service) do
   it { should be_running }
   it { should be_enabled }
+end
+
+describe command("ps axww | grep [n]tpd") do
+  its(:stderr) { should eq("") }
+  its(:stdout) { should match(/ntpd/) }
+  its(:stdout) { should match(/\-g/) }
 end
 
 describe command("ntpq -pn") do

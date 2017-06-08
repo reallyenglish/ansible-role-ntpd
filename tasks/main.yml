@@ -5,6 +5,8 @@
 
 - include: "install-{{ ansible_os_family }}.yml"
 
+- include: "configure-{{ ansible_os_family }}.yml"
+
 - name: Create ntpd_script_dir
   file:
     path: "{{ ntpd_script_dir }}"
