@@ -1,3 +1,7 @@
+## Release 1.2.1
+
+* d0add6e [bugifx] set ntpd_sync_on_start="YES" on FreeBSD (fixes #16)
+
 ## Release 1.2.0
 
 * 59d9be7 add a description about ntpd_supports_pool
