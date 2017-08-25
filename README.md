@@ -10,56 +10,58 @@ None
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| ntpd\_service | service name | ntpd |
-| ntpd\_conf | path to ntp.conf | {{ \_\_ntpd\_conf }} |
-| ntpd\_db\_dir | dir to place ntpd.leap-seconds.list | {{ \_\_ntpd\_db\_dir }} |
-| ntpd\_script\_dir | directory to keep support script. this must be included in PATH environment variable. | {{ \_\_ntpd\_script\_dir }} |
-| ntpd\_leapfile | path to leap-seconds.list | {{ ntpd\_db\_dir }}/leap-seconds.list |
-| ntpd\_package | package name | {{ \_\_ntpd\_package }} |
-| ntpd\_driftfile | path to `ntp.drift` | {{ \_\_ntpd\_db\_dir }}/ntp.drift |
-| ntpd\_leap\_seconds\_url | URL of leap-seconds.list | https://www.ietf.org/timezones/data/leap-seconds.list |
-| ntpd\_role | NTP client or server (server is not implemented) | client |
-| ntpd\_upstreams | a list of upstream | [] |
-| ntpd\_pools | a list of pool | {% if ntpd_supports_pool %}[ '0.pool.ntp.org' ]{% else %}[ '0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org' ]{% endif %} |
+| `ntpd_service` | service name of `ntpd` | `{{ __ntpd_service }}` |
+| `ntpd_conf` | path to `ntp.conf` | `{{ __ntpd_conf }}` |
+| `ntpd_db_dir` | path to directory where `ntpd.leap-seconds.list` is kept | `{{ __ntpd_db_dir }}` |
+| `ntpd_script_dir` | directory to keep support script. this must be included in PATH environment variable | `{{ __ntpd_script_dir }}` |
+| `ntpd_leapfile` | path to `leap-seconds.list` | `{{ ntpd_db_dir }}/leap-seconds.list` |
+| `ntpd_package` | package name of `ntpd` | `{{ __ntpd_package }}` |
+| `ntpd_driftfile` | path to `ntp.drift` | `{{ ntpd_db_dir }}/ntp.drift` |
+| `ntpd_leap_seconds_url` | URL of `leap-seconds.list` | `https://www.ietf.org/timezones/data/leap-seconds.list` |
+| `ntpd_role` | NTP client or server (server is not implemented) | `client` |
+| `ntpd_upstreams` | list of upstream | `[]` |
+| `ntpd_pools` | list of pool | `{% if ntpd_supports_pool %}[ '0.pool.ntp.org' ]{% else %}[ '0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org' ]{% endif %}` |
 
-### ntpd_pools
-  servers provided by DNS round robin must be added to `ntpd_pools` because
-  special treatment for restrictions is required.
-  ntpd >= 4.2.7 supports `pool` directive and a delegate pool name can be used.
-  see http://support.ntp.org/bin/view/Support/ConfiguringNTP#Section_6.10 for detail
+## `ntpd_pools`
 
-### ntpd_supports_pool
-  `ntpd_supports_pool` is a fact which is `true` when `ntpd >= 4.2.7` and
-  `false` when `ntpd < 4.2.7`.
+Servers provided by DNS round robin must be added to `ntpd_pools` because
+special treatment for restrictions is required.  ntpd >= 4.2.7 supports `pool`
+directive and a delegate pool name can be used.  see
+http://support.ntp.org/bin/view/Support/ConfiguringNTP#Section_6.10 for detail
+
+## `ntpd_supports_pool`
+
+`ntpd_supports_pool` is a fact which is `true` when `ntpd >= 4.2.7` and
+`false` when `ntpd < 4.2.7`.
 
 ## Debian
 
 | Variable | Default |
 |----------|---------|
-| \_\_ntpd\_service | ntp |
-| \_\_ntpd\_conf | /etc/ntp.conf |
-| \_\_ntpd\_db\_dir | /var/lib/ntp |
-| \_\_ntpd\_package | ntp |
-| \_\_ntpd\_script\_dir | /usr/bin |
+| `__ntpd_service` | `ntp` |
+| `__ntpd_conf` | `/etc/ntp.conf` |
+| `__ntpd_db_dir` | `/var/lib/ntp` |
+| `__ntpd_package` | `ntp` |
+| `__ntpd_script_dir` | `/usr/bin` |
 
 ## FreeBSD
 
 | Variable | Default |
 |----------|---------|
-| \_\_ntpd\_service | ntpd |
-| \_\_ntpd\_conf | /etc/ntp.conf |
-| \_\_ntpd\_db\_dir | /var/db/ntp |
-| \_\_ntpd\_script\_dir | /usr/local/bin |
+| `__ntpd_service` | `ntpd` |
+| `__ntpd_conf` | `/etc/ntp.conf` |
+| `__ntpd_db_dir` | `/var/db/ntp` |
+| `__ntpd_script_dir` | `/usr/local/bin` |
 
 ## RedHat
 
 | Variable | Default |
 |----------|---------|
-| \_\_ntpd\_service | ntpd |
-| \_\_ntpd\_conf | /etc/ntp.conf |
-| \_\_ntpd\_db\_dir | /var/lib/ntp |
-| \_\_ntpd\_package | ntp |
-| \_\_ntpd\_script\_dir | /usr/bin |
+| `__ntpd_service` | `ntpd` |
+| `__ntpd_conf` | `/etc/ntp.conf` |
+| `__ntpd_db_dir` | `/var/lib/ntp` |
+| `__ntpd_package` | `ntp` |
+| `__ntpd_script_dir` | `/usr/bin` |
 
 # Dependencies
 

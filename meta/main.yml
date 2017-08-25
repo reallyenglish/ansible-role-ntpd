@@ -25,4 +25,3 @@ galaxy_info:
 #    - installer
 #    - web
 dependencies:
-#  - { role: username.common, some_parameter: 3 }
