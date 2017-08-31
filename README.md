@@ -14,10 +14,10 @@ None
 | `ntpd_conf` | path to `ntp.conf` | `{{ __ntpd_conf }}` |
 | `ntpd_db_dir` | path to directory where `ntpd.leap-seconds.list` is kept | `{{ __ntpd_db_dir }}` |
 | `ntpd_script_dir` | directory to keep support script. this must be included in PATH environment variable | `{{ __ntpd_script_dir }}` |
-| `ntpd_leapfile` | path to `leap-seconds.list` | `{{ ntpd_db_dir }}/leap-seconds.list` |
+| `ntpd_leapfile` | path to `leap-seconds.list` If the value is empty string, `leapfile` setting is not added to `ntp.conf` | `{{ ntpd_db_dir }}/leap-seconds.list` |
 | `ntpd_package` | package name of `ntpd` | `{{ __ntpd_package }}` |
 | `ntpd_driftfile` | path to `ntp.drift` | `{{ ntpd_db_dir }}/ntp.drift` |
-| `ntpd_leap_seconds_url` | URL of `leap-seconds.list` | `https://www.ietf.org/timezones/data/leap-seconds.list` |
+| `ntpd_leap_seconds_url` | URL of `leap-seconds.list`. If the value is empty string, the file is not downloaded. | `https://www.ietf.org/timezones/data/leap-seconds.list` |
 | `ntpd_role` | NTP client or server (server is not implemented) | `client` |
 | `ntpd_upstreams` | list of upstream | `[]` |
 | `ntpd_pools` | list of pool | `{% if ntpd_supports_pool %}[ '0.pool.ntp.org' ]{% else %}[ '0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org' ]{% endif %}` |
