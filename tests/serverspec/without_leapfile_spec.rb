@@ -84,7 +84,7 @@ describe command("ntpq -pn") do
   its(:stderr) { should eq("") }
 end
 
-describe "ntpd sync", retry: 60, retry_wait: 1 do
+describe "ntpd sync", retry: 120, retry_wait: 1 do
   it "synced to a server" do
     expect(command("ntpq -pn").stdout).to match(/\*\d+\.\d+\.\d+\.\d+ /)
   end
