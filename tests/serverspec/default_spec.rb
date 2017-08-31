@@ -91,7 +91,7 @@ describe "ntpd sync", retry: 30, retry_wait: 1 do
     expect(command("ntpq -pn").stdout).to match(/\*\d+\.\d+\.\d+\.\d+ /)
   end
   it "reaches at least one server in non-INIT state" do
-    refids = command("ntpq -pn | tail -n +3 | ntpq -pn | tail -n +3 | awk '! /\.POOL\./ { print $2 }'").stdout.split("\n")
+    refids = command("ntpq -pn | tail -n +3 | awk '! /\.POOL\./ { print $2 }'").stdout.split("\n")
     # reject all non-working, or unreachable, upstreams
     refids_not_in_init_state = refids.reject { |i| i == "INIT" }
     expect(refids_not_in_init_state.length).to be > 0
