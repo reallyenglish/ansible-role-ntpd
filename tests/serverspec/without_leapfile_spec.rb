@@ -40,7 +40,6 @@ end
 describe file(config) do
   it { should be_file }
   its(:content) { should match(/^restrict localhost$/) }
-  its(:content) { should match Regexp.escape("leapfile \"#{leap_file}\"") }
   its(:content) { should match Regexp.escape("driftfile \"#{db_dir}/ntp.drift\"") }
   its(:content) { should match Regexp.escape("server time1.google.com iburst") }
   its(:content) { should match Regexp.escape("server time2.google.com iburst") }
@@ -66,8 +65,7 @@ describe file(config) do
 end
 
 describe file(leap_file) do
-  it { should be_file }
-  its(:content) { should match(/2272060800\s+10\s+/) }
+  it { should_not exist }
 end
 
 describe service(service) do

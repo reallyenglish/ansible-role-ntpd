@@ -33,6 +33,9 @@
     url: "{{ ntpd_leap_seconds_url }}"
     dest: "{{ ntpd_leapfile }}"
     force: yes
+  when:
+    - ntpd_leap_seconds_url is defined
+    - ntpd_leap_seconds_url | length > 0
 
 - name: Create ntpd.conf
   template:

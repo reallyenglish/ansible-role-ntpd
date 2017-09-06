@@ -22,5 +22,7 @@ server {{ ntpd_pool }} iburst
 {% endif %}
 {% endif %}
 restrict localhost
+{% if ntpd_leapfile | length > 0 %}
 leapfile "{{ ntpd_leapfile }}"
+{% endif %}
 driftfile "{{ ntpd_driftfile }}"

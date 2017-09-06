@@ -55,3 +55,12 @@ suites:
     verifier:
       name: shell
       command: rspec -c -f d -I tests/serverspec tests/serverspec/default_spec.rb
+  - name: without_leapfile
+    provisioner:
+      name: ansible_playbook
+      playbook: tests/serverspec/without_leapfile.yml
+    verifier:
+      name: shell
+      command: rspec -c -f d -I tests/serverspec tests/serverspec/without_leapfile_spec.rb
+    #includes:
+    #- freebsd-10.3-amd64
