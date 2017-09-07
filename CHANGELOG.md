@@ -1,3 +1,8 @@
+## Release 1.3.0
+
+* 7c6934f [feature] make ntpd_leapfile optional (#25)
+* 38166d2 [bugfix] QA (#23)
+
 ## Release 1.2.1
 
 * d0add6e [bugifx] set ntpd_sync_on_start="YES" on FreeBSD (fixes #16)
